@@ -128,12 +128,20 @@ for key in ninja:
 # replace last value in list with counter
 
 
-def count_positives(numbers):
-    counter = 0
-    for i in range(len(numbers)):
-        if numbers[i] > 0:
-            counter += 1
-    numbers[len(numbers)-1] = counter
+# def count_positives(numbers):
+#     counter = 0
+#     for i in range(len(numbers)):
 
-    
-print(count_positives([2,5,-9,0,4,-6,-13,2])
+#         if numbers[i] > 0:
+#             counter += 1
+#     numbers[len(numbers)-1] = counter
+# print(""+ greet())
+
+
+# def greet():
+#     print("Hello! "+ name)
+
+# greet("Michael")
+
+
+print('*'*70)
