@@ -1,7 +1,6 @@
 import random
 
 random_number = round(random.random() * 10)
-
 print(random_number)
 
 # Task One: Familiarize Ourselves w/ The Data and 'random' Library
@@ -94,11 +93,13 @@ def random_number_game(player, guess):
     return player
 
 
-for index in range(len(players)):
-    for guess in range(5, 25):
-        print(f"Result: {random_number_game(players[index], guess)}")
+# for index in range(len(players)):
+#     for guess in range(5, 25):
+#         print(f"Result: {random_number_game(players[index], guess)}")
 
-print(f"This is my final product {players}")
+# print(f"This is my final product {players}")
+
+random_number_game(players[0], 10)
 
 
     
