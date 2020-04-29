@@ -16,7 +16,7 @@ for attribute in dojo:
 # Class syntax
 # attributes and methods
 
-class User():
+class User:
     def __init__(self, name, w_name, attack):
         self.name = name
         self.warrior_type = Warrior(w_name, attack)
@@ -51,7 +51,7 @@ raj = User("Raj", "knight", 20)
 # Inheritance
 
 
-class Warrior():
+class Warrior:
     def __init__(self, name, attack):
         self.name = name
         self.attack_p = attack
