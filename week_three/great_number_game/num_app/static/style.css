@@ -1,0 +1,46 @@
+#wrapper{
+    margin: 0px auto;
+    width: 950px;
+    min-height: 500px;
+    background-color: bisque;
+    font-family: sans-serif;
+    padding: 25px;
+}
+
+#header{
+    color: purple;
+}
+
+    .subhead{
+        display: inline-block;
+        margin: 60px;
+    }
+
+#maincontent{
+    background-color: purple;
+    min-height: 400px;
+    margin: 25px;
+}
+
+    .subcontent{
+        display: inline-block;
+        margin: 20px;
+        padding: 25px;
+        text-align: center;
+        width: 350px;
+        min-height: 300px;
+        background-color: bisque;
+        vertical-align: top;
+    }
+
+.high{
+    color: red;
+}
+
+.low{
+    color: blue;
+}
+
+.right{
+    color: green;
+}
