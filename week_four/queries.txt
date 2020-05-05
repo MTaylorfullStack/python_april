@@ -1,0 +1,41 @@
+>>> from media_app.models import *
+>>> User.objects.create(first_name="Bob", last_name="Ross")
+<User: User object (1)>
+>>> User.objects.create(first_name="Pablo", last_name="Picasso")
+<User: User object (2)>
+>>> User.objects.create(first_name="Georgia", last_name="O'Keefe")
+<User: User object (3)>
+>>> User.objects.get(id=3)
+<User: User object (3)>
+>>> ls
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'ls' is not defined
+>>> okeefe = User.objects.get(id=3)
+>>> print(okeefe)
+User object (3)
+>>> print(okeefe.first_name)
+Georgia
+>>> print(okeefe.created_at)
+2020-05-05 00:29:50.200261+00:00
+>>> all_users = User.objects.all()
+>>> print(all_users)
+<QuerySet [<User: User object (1)>, <User: User object (2)>, <User: User object (3)>]>
+>>> for user in all_users:
+...     print(user.last_name, user.created_at)
+... 
+Ross 2020-05-05 00:27:37.078951+00:00
+Picasso 2020-05-05 00:28:11.522194+00:00
+O'Keefe 2020-05-05 00:29:50.200261+00:00
+>>> 
+>>> from media_app.models import *
+>>> picasso = User.objects.get(id=2)
+>>> mess = Message_Post.objects.get(id=4)
+>>> mess.likes.add(picasso)
+>>> mess.likes
+<django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x10f527f50>
+>>> mess.likes.all()
+<QuerySet [<User: User object (2)>]>
+>>> mess.likes.count()
+1
+>>> 
