@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Feed</title>
+</head>
+<body>
+    <h1>{{request.session.name}}, welcome to your feed!</h1>
+    <h2>Please, post a message:</h2>
+    <form action="/create_message" method=POST>
+        {% csrf_token %}
+    Message: <input type="text" name='contents'>
+    <input type="submit" value='Post'>
+    </form>
+
+
+    <table>
+        <tr>
+            <th>Message Contents</th>
+            <th>Message Poster</th>
+            <th>Number of Likes</th>
+            <th>Actions</th>
+        </tr>
+        {% for post in all_posts %}
+        <tr>
+            <td>{{post.message}}</td>
+            <td>{{post.poster.first_name}} {{post.poster.last_name}}</td>
+            <td>{{post.likes.count}}</td>
+            <td><a href="/likes/{{post.id}}">Like</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>

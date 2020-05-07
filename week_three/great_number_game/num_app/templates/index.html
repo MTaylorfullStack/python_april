@@ -41,9 +41,10 @@
             
             <div class="subcontent">
                 <h2>Result</h2>
-                <p class={{request.session.style}}>{{ request.session.result }}</p>
-                {% for result in request.session.feed %}
-                <p>{{ result }}</p>
+                <p class={{request.session.style}}></p>
+                {% for player in all_players %}
+                <p>{{player.name}} {{player.guess}} {{player.result}}</p><br>
+                <p>{{player.created_at}}</p>
                 {% endfor %}
             </div>
         </div>

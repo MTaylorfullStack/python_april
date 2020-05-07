@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Player(models.Model):
+    name = models.CharField(max_length=255)
+    guess = models.IntegerField()
+    result = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
