@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tasks</title>
+</head>
+<body>
+    <h1>Placeholder for all tasks</h1>
+
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Created</th>
+            <th>View</th>
+            <th>Complete</th>
+            <th>Edit</th>
+        </tr>
+        {% for task in all_tasks %}
+        <tr>
+            <td>{{task.task}}</td>
+            <td>{{task.created_at}}</td>
+            <td><a href="/task/{{task.id}}">View Task</a></td>
+            <td><a href="/task/{{task.id}}/complete">Complete Task</a></td>
+            <td><a href="/edit/{{task.id}}">Edit Task</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
