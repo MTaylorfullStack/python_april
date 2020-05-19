@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Hello {{request.session.name}}! Welcome to the Success Page!</h1>
+    <h2>You have successfully logged in</h2>
+
+    <h2>Post a Message:</h2>
+    <form action="/create_mess" method=POST>
+        {% csrf_token %}
+    <input type="text" name="message">
+    <input type="submit" value='Submit'>
+    </form>
+    <a href="/logout">Logout</a>
+    
+    {% for mess in all_messages %}
+    <div class='mess'>
+        <p>Message: {{mess.message}}</p>
+
+        <a href="/like/{{mess.id}}">Like</a>
+        <p>{{mess.likes.count}}</p>
+        
+        <p>Posted by: {{mess.poster.first_name}} {{mess.poster.last_name}}</p>
+
+        {% for comm in mess.comments.all %}
+        <div class='comm'>
+            <p>Comment: {{comm.comment}}</p>
+
+            <p>Posted by: {{comm.poster.first_name}} {{comm.poster.last_name}}</p>
+
+            <p>Posted at {{comm.created_at}}</p>
+        </div>
+        {% endfor %}
+
+        <form action="/create_comm/{{mess.id}}" method=POST>
+            {% csrf_token %}
+            <input type="text" name='comment'>
+            <input type="submit" value='Post Comment'>
+        </form>
+
+        <p>Posted at {{mess.created_at}}</p>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
