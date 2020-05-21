@@ -70,6 +70,51 @@ def add_like(request, mess_id):
     message_liked = Message.objects.get(id=mess_id)
     message_liked.likes.add(user_liking)
     return redirect('/success')
+
+def profile(request, user_id):
+    # to view all of the messages and comments this user has posted
+    context = {
+        'user': User.objects.get(id=user_id)
+    }
+    return render(request, 'profile.html', context)
+
+def edit_user(request, user_id):
+    # render the edit page
+    context = {
+        'user': User.objects.get(id=user_id)
+    }
+    if request.method == 'POST':
+        errors = User.objects.validate_edit(request.POST)
+        print(errors)
+        if len(errors)>0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f'/edit/{str(user_id)}')
+        edit_user = User.objects.get(id=user_id)
+        edit_user.first_name = request.POST['fname']
+        edit_user.last_name = request.POST['lname']
+        edit_user.email = request.POST['email']
+        edit_user.save()
+        return redirect(f'/profile/{str(user_id)}')
+    return render(request, 'edit_user.html', context)
+    # OR
+    # if coming from form submission, process the update
+
+def destroy_mess(request, mess_id):
+    one_mess = Message.objects.get(id=mess_id)
+    one_mess.delete()
+    return redirect('/success')
+    
+def edit_mess(request, mess_id):
+    context = {
+        'mess': Message.objects.get(id=mess_id)
+    }
+    if request.method == 'POST':
+        mess = Message.objects.get(id=mess_id)
+        mess.message = request.POST['message']
+        mess.save()
+        return redirect('/success')
+    return render(request, 'edit_mess.html', context)
 # If I am redirecting to a page that requires an id
 
 # return redirect('/one_mess'+str(mess_id))

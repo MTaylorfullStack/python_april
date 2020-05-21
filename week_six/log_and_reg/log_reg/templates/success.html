@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,46 +8,63 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+
 <body>
-    <h1>Hello {{request.session.name}}! Welcome to the Success Page!</h1>
-    <h2>You have successfully logged in</h2>
 
-    <h2>Post a Message:</h2>
-    <form action="/create_mess" method=POST>
-        {% csrf_token %}
-    <input type="text" name="message">
-    <input type="submit" value='Submit'>
-    </form>
-    <a href="/logout">Logout</a>
-    
-    {% for mess in all_messages %}
-    <div class='mess'>
-        <p>Message: {{mess.message}}</p>
+    <div id="wrapper">
 
-        <a href="/like/{{mess.id}}">Like</a>
-        <p>{{mess.likes.count}}</p>
-        
-        <p>Posted by: {{mess.poster.first_name}} {{mess.poster.last_name}}</p>
+        <div id="head">
+            <h1>Hello <a href="/profile/{{request.session.id}}">{{request.session.name}}</a>! Welcome to the Success Page!</h1>
+            <h2>You have successfully logged in</h2>
+            <a href="/logout">Logout</a>
+            <h2>Post a Message:</h2>
+            <form action="/create_mess" method=POST>
+                {% csrf_token %}
+                <textarea name="message"></textarea>
+                <input type="submit" value='Submit'>
+            </form>
+        </div>
 
-        {% for comm in mess.comments.all %}
-        <div class='comm'>
-            <p>Comment: {{comm.comment}}</p>
+        {% for mess in all_messages %}
+        <div class='mess'>
+            
+            <p>{{mess.poster.first_name}} {{mess.poster.last_name}} posted at {{mess.created_at}}</p>
+            <p>{{mess.message}}</p>
+            
+            <a href="/like/{{mess.id}}">Like</a>
+            
+            
+            {% if mess.likes.count > 0 %}
+            <p>{{mess.likes.count}}</p>
+            {% endif %}
 
-            <p>Posted by: {{comm.poster.first_name}} {{comm.poster.last_name}}</p>
+            {% if request.session.id == mess.poster.id %}
+            <a href="/delete/{{mess.id}}">Delete</a>
+            <a href="/edit_mess/{{mess.id}}">Edit Message</a>
+            {% endif %}
+            
+            <form action="/create_comm/{{mess.id}}" method=POST>
+                {% csrf_token %}
+                <input type="text" name='comment'>
+                <input type="submit" value='Post Comment'>
+            </form>
 
-            <p>Posted at {{comm.created_at}}</p>
+            <h3>Comments:</h3>
+            {% if mess.comments.count == 0 %}
+            <p>This Post Does Not Have Any Comments</p>
+            {% endif %}
+            {% for comm in mess.comments.all %}
+            <div class='comm'>
+                <p>{{comm.poster.first_name}} {{comm.poster.last_name}} commented at {{comm.created_at}}</p>
+                <p>{{comm.comment}}</p>
+            </div>
+            {% endfor %}
+
         </div>
         {% endfor %}
 
-        <form action="/create_comm/{{mess.id}}" method=POST>
-            {% csrf_token %}
-            <input type="text" name='comment'>
-            <input type="submit" value='Post Comment'>
-        </form>
-
-        <p>Posted at {{mess.created_at}}</p>
     </div>
-    {% endfor %}
 
 </body>
+
 </html>

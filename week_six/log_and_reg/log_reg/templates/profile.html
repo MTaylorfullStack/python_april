@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Hello {{user.first_name}} {{user.last_name}}, welcome to your profile</h1>
+    <a href="/edit/{{user.id}}">Edit Your Profile</a>
+
+    <h2>Here are your posted messages:</h2>
+    {% for mess in user.messages.all %}
+    <p>You posted: {{mess.message}} at {{mess.created_at}}</p><br>
+    {% endfor %}
+
+    <h2>Here are your posted comments:</h2>
+    {% for comm in user.comments.all %}
+    <p>You commented: {{comm.comment}} at {{comm.created_at}}</p>
+    {% endfor %}
+</body>
+</html>
